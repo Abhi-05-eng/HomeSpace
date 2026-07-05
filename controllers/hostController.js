@@ -1,4 +1,6 @@
 const Home = require("../models/home");
+const fs = require("fs");
+const path = require("path");
 
 exports.getAddHome = (req, res, next) => {
   res.render("host/add-home", {
@@ -85,7 +87,7 @@ exports.postAddHome = async (req, res, next) => {
 
 exports.postEditHome = async (req, res, next) => {
   try {
-    const { id, houseName, price, location, rating, photo, description } = req.body;
+    const { id, houseName, price, location, rating,description } = req.body;
 
     const home = await Home.findById(id);
 
@@ -96,12 +98,26 @@ exports.postEditHome = async (req, res, next) => {
     if (home.userId.toString() !== req.session.user._id) {
       return res.redirect("/");
     }
+   if (req.file) {
+    // Delete old image
+    if (home.photo) {
+        const oldImagePath = path.join(__dirname, "..", home.photo);
+
+        fs.unlink(oldImagePath, (err) => {
+            if (err) {
+                console.log("Error deleting old image:", err);
+            }
+        });
+    }
+
+    // Save new image
+    home.photo = "/uploads/" + req.file.filename;
+}
 
     home.houseName = houseName;
     home.price = price;
     home.location = location;
     home.rating = rating;
-    home.photo = photo;
     home.description = description;
 
     await home.save();
@@ -128,6 +144,18 @@ exports.postDeleteHome = async (req, res, next) => {
       return res.redirect("/");
     }
 
+    // Delete image from uploads folder
+    if (home.photo) {
+      const imagePath = path.join(__dirname, "..", home.photo);
+
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.log("Error deleting image:", err);
+        }
+      });
+    }
+
+    // Delete home from MongoDB
     await Home.findByIdAndDelete(homeId);
 
     res.redirect("/host/host-home-list");
