@@ -1,0 +1,172 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-slate-100 min-h-screen overflow-x-hidden">
+  <%- include('../partials/nav') %>
+
+  <main class="flex items-center justify-center px-4 py-6 overflow-x-hidden">
+
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-slate-200 p-4 md:p-6">
+
+      <!-- Heading -->
+      <h1 class="text-3xl font-bold text-center text-slate-800 mb-2">
+        Register As New User
+      </h1>
+
+      <p class="text-center text-slate-500 mb-8">
+        Create your account to continue
+      </p>
+
+      <!-- Form -->
+      <form action="/signup" method="POST" class="space-y-3">
+
+        <!-- Error Message -->
+       <%- include('../partials/error') %>
+
+        <!-- First Name -->
+        <div>
+          <label for="firstName" class="block mb-2 text-sm font-medium text-slate-700">
+            First Name
+          </label>
+          <input
+            type="text"
+            name="firstName"
+            id="firstName"
+            placeholder="Enter your first name"
+            value="<%= oldInput?.firstName || '' %>"
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- Last Name -->
+        <div>
+          <label for="lastName" class="block mb-2 text-sm font-medium text-slate-700">
+            Last Name
+          </label>
+          <input
+            type="text"
+            name="lastName"
+            id="lastName"
+            placeholder="Enter your last name"
+            value="<%= oldInput?.lastName || '' %>"
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-slate-700">
+            Email Address
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="xyz@gmail.com"
+            value="<%= oldInput?.email || '' %>"
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-slate-700">
+            Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+          <label for="confirmPassword" class="block mb-2 text-sm font-medium text-slate-700">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- User Type -->
+        <div>
+          <p class="mb-2 text-sm font-medium text-slate-700">
+            I want to register as:
+          </p>
+
+          <div class="flex gap-6">
+            <label class="flex items-center gap-2 cursor-pointer text-slate-700">
+              <input
+                type="radio"
+                name="userType"
+                value="guest"
+                class="accent-emerald-500"
+                <%= oldInput?.userType !== 'host' ? 'checked' : '' %>
+              >
+              <span>Guest</span>
+            </label>
+
+            <label class="flex items-center gap-2 cursor-pointer text-slate-700">
+              <input
+                type="radio"
+                name="userType"
+                value="host"
+                class="accent-emerald-500"
+                <%= oldInput?.userType === 'host' ? 'checked' : '' %>
+              >
+              <span>Host</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="flex items-start gap-2">
+          <input
+            type="checkbox"
+            name="terms"
+            id="terms"
+            class="mt-1 accent-emerald-500"
+            required
+            <%= oldInput?.terms ? 'checked' : '' %>
+          >
+          <label for="terms" class="text-sm text-slate-600">
+            I agree to the terms and conditions
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <div>
+          <input
+            type="submit"
+            value="Register"
+            class="w-full bg-emerald-500 text-white py-3 rounded-lg font-semibold hover:bg-emerald-600 transition duration-300 cursor-pointer"
+          />
+        </div>
+
+        <!-- Login -->
+        <p class="text-center text-sm text-slate-500">
+          Already have an account?
+          <a href="/login" class="text-emerald-500 font-medium hover:underline">
+            Login
+          </a>
+        </p>
+
+      </form>
+    </div>
+
+  </main>
+</body>
+</html>

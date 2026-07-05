@@ -1,0 +1,138 @@
+<header class="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+  <nav class="max-w-7xl mx-auto px-4 lg:px-8">
+
+    <!-- Responsive Navbar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 py-4">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 shrink-0">
+        
+        <div class="p-1.5 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 shadow-lg">
+          <img 
+            src="/images/logo.png" 
+            alt="HomeSpace Logo"
+            class="w-11 h-11 object-contain rounded-xl"
+          >
+        </div>
+
+        <div class="leading-tight">
+          <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+            <span class="text-cyan-400">Home</span><span class="text-emerald-400">Space</span>
+          </h1>
+          <p class="hidden sm:block text-[10px] text-slate-400 uppercase tracking-[0.25em]">
+            Premium Stays
+          </p>
+        </div>
+
+      </a>
+
+      <!-- Menu -->
+      <ul class="flex flex-wrap justify-center lg:justify-end items-center gap-2 text-sm font-medium w-full lg:w-auto">
+
+        <!-- HomeSpace -->
+        <li>
+          <a
+            href="/"
+            class="<%= currentPage === 'index'
+              ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
+              : 'text-slate-300 hover:bg-slate-800 hover:text-white' %> px-3 sm:px-4 py-2 rounded-xl transition duration-300"
+          >
+            HomeSpace
+          </a>
+        </li>
+
+        <% if (isLoggedIn && user) { %>
+
+  <% if (user.userType === 'guest') { %>
+  <!-- Guest Menu -->
+
+  <!-- Homes -->
+  <li>
+    <a href="/homes"
+      class="<%= currentPage === 'homes'
+        ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-white' %> px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Homes
+    </a>
+  </li>
+
+  <!-- Favourites -->
+  <li>
+    <a href="/favourites"
+      class="<%= currentPage === 'favourites'
+        ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-white' %> px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Favourites
+    </a>
+  </li>
+
+  <!-- Bookings -->
+  <li>
+    <a href="/bookings"
+      class="<%= currentPage === 'bookings'
+        ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-white' %> px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Bookings
+    </a>
+  </li>
+
+  <% } else if (user.userType === 'host') { %>
+  <!-- Host Menu -->
+
+  <li>
+    <a href="/host/host-home-list"
+      class="<%= currentPage === 'host-homes'
+        ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-white' %> px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Host Homes
+    </a>
+  </li>
+
+  <li>
+    <a href="/host/add-home"
+      class="<%= currentPage === 'addHome'
+        ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 text-white shadow-md'
+        : 'text-slate-300 hover:bg-slate-800 hover:text-white' %> px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Add Home
+    </a>
+  </li>
+
+  <% } %>
+
+  <!-- Logout -->
+  <li>
+    <form action="/logout" method="POST">
+      <button
+        type="submit"
+        class="bg-red-500 hover:bg-red-600 text-white px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+        Logout
+      </button>
+    </form>
+  </li>
+
+<% } else { %>
+
+  <!-- Not Logged In -->
+
+  <li>
+    <a href="/signup"
+      class="text-slate-300 hover:bg-slate-800 hover:text-white px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Signup
+    </a>
+  </li>
+
+  <li>
+    <a href="/login"
+      class="bg-gradient-to-r from-cyan-500 to-emerald-500 hover:opacity-90 text-white px-3 sm:px-4 py-2 rounded-xl transition duration-300">
+      Login
+    </a>
+  </li>
+
+<% } %>
+
+      </ul>
+
+    </div>
+
+  </nav>
+</header>

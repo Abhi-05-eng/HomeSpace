@@ -1,0 +1,88 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-slate-100 min-h-screen overflow-x-hidden">
+  <%- include('../partials/nav') %>
+
+  <main class="min-h-[calc(100vh-80px)] flex items-center justify-center px-4 py-8">
+    
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
+      
+      <!-- Heading -->
+      <h1 class="text-3xl font-bold text-center text-slate-800 mb-2">
+        Welcome Back
+      </h1>
+
+      <p class="text-center text-slate-500 mb-8">
+        Login to continue to your Airbnb account
+      </p>
+
+      <!-- Form -->
+      <form action="/login" method="POST" class="space-y-5">
+
+        <!-- Error Message -->
+       <%- include('../partials/error') %> 
+
+        <!-- Email / Username -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700 mb-2">
+            Email / Username
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            id="username"
+            placeholder="xyz@gmail.com"
+            value="<%= oldInput?.email || '' %>"
+            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-slate-700 mb-2">
+            Password
+          </label>
+
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter Your Password"
+            class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            required
+          />
+        </div>
+
+        <!-- Forgot Password -->
+        <div class="text-right">
+          <a href="#" class="text-sm text-emerald-500 hover:underline">
+            Forgot Password?
+          </a>
+        </div>
+
+        <!-- Login Button -->
+        <div>
+          <input
+            type="submit"
+            value="Login"
+            class="w-full bg-emerald-500 text-white py-3 rounded-lg font-semibold hover:bg-emerald-600 transition duration-300 cursor-pointer"
+          />
+        </div>
+
+        <!-- Register Link -->
+        <p class="text-center text-sm text-slate-500">
+          Don't have an account?
+          <a href="/signup" class="text-emerald-500 font-medium hover:underline">
+            Register Now
+          </a>
+        </p>
+
+      </form>
+    </div>
+
+  </main>
+</body>
+</html>

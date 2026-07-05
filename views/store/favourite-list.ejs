@@ -1,0 +1,146 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+  <%- include('../partials/nav') %>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Main Card -->
+    <section class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+      <!-- Header (Same Theme as Bookings) -->
+      <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 px-8 py-6 text-white">
+
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+
+          <!-- Logo -->
+          <div class="bg-white/15 backdrop-blur-md p-3 rounded-2xl border border-white/20 shadow-lg">
+            <img 
+              src="/images/logo.png"
+              alt="HomeSpace Logo"
+              class="w-14 h-14 object-contain"
+            >
+          </div>
+
+          <!-- Title -->
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold">
+              Your Favourite Homes
+            </h2>
+
+            <p class="mt-2 text-sm text-white/90">
+              Saved stays you loved on HomeSpace
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Content -->
+      <div class="p-8">
+
+        <% if (favouriteHomes.length > 0) { %>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            <% favouriteHomes.forEach(home => { %>
+
+              <!-- Card -->
+              <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
+
+                <!-- Image -->
+                <img 
+                  src="<%= home.photo %>" 
+                  alt="<%= home.houseName %>" 
+                  class="w-full h-56 object-cover"
+                >
+
+                <!-- Body -->
+                <div class="p-5">
+
+                  <!-- Name -->
+                  <h3 class="text-xl font-bold text-slate-800 mb-2 truncate">
+                    <%= home.houseName %>
+                  </h3>
+
+                  <!-- Location -->
+                  <p class="text-slate-500 text-sm mb-3">
+                    📍 <%= home.location %>
+                  </p>
+
+                  <!-- Price + Rating -->
+                  <div class="flex items-center justify-between mb-5">
+
+                    <span class="text-lg font-bold text-emerald-600">
+                      ₹<%= home.price %> / night
+                    </span>
+
+                    <span class="flex items-center gap-1 text-yellow-500 font-semibold">
+                      ⭐ <%= home.rating %>
+                    </span>
+
+                  </div>
+
+                  <!-- Remove Button -->
+                  <form 
+                    action="/favourites/delete/<%= home._id %>" 
+                    method="POST"
+                  >
+                    <button
+                      type="submit"
+                      class="w-full bg-gradient-to-r from-emerald-500 to-cyan-600 hover:opacity-90 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300"
+                    >
+                      Remove Favourite
+                    </button>
+                  </form>
+
+                </div>
+
+              </div>
+
+            <% }) %>
+
+          </div>
+
+        <% } else { %>
+
+          <!-- Empty State -->
+          <div class="text-center py-16">
+
+            <img 
+              src="/images/logo.png"
+              alt="No Favourites"
+              class="w-24 h-24 mx-auto mb-5 opacity-80"
+            >
+
+            <h3 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">
+              No Favourite Homes Yet
+            </h3>
+
+            <p class="text-slate-500 text-lg mb-8">
+              Start exploring and save homes you love.
+            </p>
+
+            <a
+              href="/homes"
+              class="inline-block bg-gradient-to-r from-emerald-500 to-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition duration-300"
+            >
+              Explore Homes
+            </a>
+
+          </div>
+
+        <% } %>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

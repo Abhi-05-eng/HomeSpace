@@ -1,0 +1,153 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+  <%- include('../partials/nav') %>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Main Card -->
+    <section class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 px-8 py-6 text-white">
+
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+
+          <!-- Logo -->
+          <div class="bg-white/15 backdrop-blur-md p-3 rounded-2xl border border-white/20 shadow-lg">
+            <img 
+              src="/images/logo.png"
+              alt="HomeSpace Logo"
+              class="w-14 h-14 object-contain"
+            >
+          </div>
+
+          <!-- Title -->
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold">
+              Welcome to HomeSpace
+            </h2>
+
+            <p class="mt-2 text-sm text-white/90">
+              Find premium stays, cozy homes and unforgettable experiences
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Homes Section -->
+      <div class="p-8">
+
+        <% if (registeredHomes.length > 0) { %>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            <% registeredHomes.forEach(home => { %>
+
+              <!-- Card -->
+              <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
+
+                <!-- Image -->
+                <div class="overflow-hidden">
+                  <img 
+                    src="<%= home.photo %>" 
+                    alt="<%= home.houseName %>" 
+                    class="w-full h-56 object-cover hover:scale-110 transition duration-500"
+                  >
+                </div>
+
+                <!-- Body -->
+                <div class="p-5">
+
+                  <!-- Name -->
+                  <h3 class="text-xl font-bold text-slate-800 mb-2 truncate">
+                    <%= home.houseName %>
+                  </h3>
+
+                  <!-- Location -->
+                  <p class="text-slate-500 text-sm mb-3">
+                    📍 <%= home.location %>
+                  </p>
+
+                  <!-- Price + Rating -->
+                  <div class="flex items-center justify-between mb-5">
+
+                    <span class="text-lg font-bold text-emerald-600">
+                      ₹<%= home.price %> / night
+                    </span>
+
+                    <span class="flex items-center gap-1 text-yellow-500 font-semibold">
+                      ⭐ <%= home.rating %>
+                    </span>
+
+                  </div>
+
+                  <!-- Buttons -->
+                  <div class="flex gap-3">
+
+                    <a 
+                      href="/homes/<%= home._id %>"
+                      class="flex-1 text-center bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-semibold transition duration-300"
+                    >
+                      Details
+                    </a>
+
+                    <button 
+                      class="flex-1 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:opacity-90 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300"
+                    >
+                      Book Now
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            <% }) %>
+
+          </div>
+
+        <% } else { %>
+
+          <!-- Empty State -->
+          <div class="text-center py-16">
+
+            <img 
+              src="/images/logo.png"
+              alt="No Homes"
+              class="w-24 h-24 mx-auto mb-5 opacity-80"
+            >
+
+            <h3 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">
+              No Homes Available Right Now
+            </h3>
+
+            <p class="text-slate-500 text-lg mb-8">
+              New premium stays will appear here soon.
+            </p>
+
+            <a
+              href="/homes"
+              class="inline-block bg-gradient-to-r from-emerald-500 to-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition duration-300"
+            >
+              Explore Homes
+            </a>
+
+          </div>
+
+        <% } %>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
