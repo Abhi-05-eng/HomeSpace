@@ -1,0 +1,147 @@
+<% if (successMessage.length > 0) { %>
+
+<div
+    id="flash-success"
+    class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md">
+
+    <div
+        class="flex items-center justify-between bg-emerald-500 text-white px-5 py-4 rounded-2xl shadow-2xl animate-slideDown">
+
+        <div class="flex items-center gap-3">
+
+            <span class="text-2xl">✅</span>
+
+            <div>
+
+                <p class="font-semibold">
+                    Success
+                </p>
+
+                <p class="text-sm text-emerald-100">
+                    <%= successMessage[0] %>
+                </p>
+
+            </div>
+
+        </div>
+
+        <button
+            onclick="closeFlash('flash-success')"
+            class="text-2xl leading-none hover:scale-110 transition">
+
+            &times;
+
+        </button>
+
+    </div>
+
+</div>
+
+<% } %>
+
+
+
+<% if (errorMessage.length > 0) { %>
+
+<div
+    id="flash-error"
+    class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md">
+
+    <div
+        class="flex items-center justify-between bg-red-500 text-white px-5 py-4 rounded-2xl shadow-2xl animate-slideDown">
+
+        <div class="flex items-center gap-3">
+
+            <span class="text-2xl">❌</span>
+
+            <div>
+
+                <p class="font-semibold">
+                    Booking Failed
+                </p>
+
+                <p class="text-sm text-red-100">
+                    <%= errorMessage[0] %>
+                </p>
+
+            </div>
+
+        </div>
+
+        <button
+            onclick="closeFlash('flash-error')"
+            class="text-2xl leading-none hover:scale-110 transition">
+
+            &times;
+
+        </button>
+
+    </div>
+
+</div>
+
+<% } %>
+
+<style>
+
+@keyframes slideDown{
+
+    from{
+
+        opacity:0;
+        margin-top:-25px;
+
+    }
+
+    to{
+
+        opacity:1;
+        margin-top:0;
+
+    }
+
+}
+
+.animate-slideDown{
+
+    animation:slideDown .35s ease;
+
+}
+
+.fade-out{
+
+    opacity:0;
+    margin-top:-20px;
+    transition:all .4s ease;
+
+}
+
+</style>
+
+<script>
+
+function closeFlash(id){
+
+    const box=document.getElementById(id);
+
+    if(!box) return;
+
+    box.classList.add("fade-out");
+
+    setTimeout(()=>{
+
+        box.remove();
+
+    },400);
+
+}
+
+setTimeout(()=>{
+
+    closeFlash("flash-success");
+
+    closeFlash("flash-error");
+
+},5000);
+
+</script>

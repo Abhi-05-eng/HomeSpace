@@ -1,122 +1,473 @@
 <%- include('../partials/head') %>
-</head>
+  </head>
 
-<body class="bg-slate-100 min-h-screen">
+  <body class="bg-slate-100 min-h-screen">
 
-  <%- include('../partials/nav') %>
+    <%- include('../partials/nav') %>
+      <%- include('../partials/flash') %>
 
-  <main class="max-w-7xl mx-auto px-4 py-8">
+        <main class="max-w-7xl mx-auto px-4 py-8">
 
-    <!-- Main Card -->
-    <section class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <!-- Main Card -->
+          <section class="bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-      <!-- Header -->
-      <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 px-8 py-6 text-white">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 px-8 py-6 text-white">
 
-        <div class="flex flex-col sm:flex-row items-center gap-4">
+              <div class="flex flex-col sm:flex-row items-center gap-4">
 
-          <!-- Logo -->
-          <div class="bg-white/15 backdrop-blur-md p-3 rounded-2xl border border-white/20 shadow-lg">
-            <img 
-              src="/images/logo.png"
-              alt="HomeSpace Logo"
-              class="w-14 h-14 object-contain"
-            >
-          </div>
+                <!-- Logo -->
+                <div class="bg-white/15 backdrop-blur-md p-3 rounded-2xl border border-white/20 shadow-lg">
+                  <img src="/images/logo.png" alt="HomeSpace Logo" class="w-14 h-14 object-contain">
+                </div>
 
-          <!-- Title -->
-          <div>
-            <h2 class="text-3xl sm:text-4xl font-bold">
-              Details of <%= home.houseName %>
-            </h2>
+                <!-- Title -->
+                <div>
+                  <h2 class="text-3xl sm:text-4xl font-bold">
+                    Details of <%= home.houseName %>
+                  </h2>
 
-            <p class="mt-2 text-sm text-white/90">
-              Explore this premium stay on HomeSpace
-            </p>
-          </div>
+                  <p class="mt-2 text-sm text-white/90">
+                    Explore this premium stay on HomeSpace
+                  </p>
+                </div>
 
-        </div>
-
-      </div>
-
-      <!-- Content -->
-      <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
-
-        <!-- Left Image -->
-        <div class="rounded-3xl overflow-hidden shadow-lg border border-slate-200">
-          <img 
-            src="<%= home.photo %>" 
-            alt="<%= home.houseName %>" 
-            class="w-full h-full min-h-[420px] object-cover hover:scale-105 transition duration-500"
-          >
-        </div>
-
-        <!-- Right Details -->
-        <div class="space-y-6">
-
-          <!-- House Name -->
-          <div>
-            <h3 class="text-3xl font-bold text-slate-800">
-              <%= home.houseName %>
-            </h3>
-
-            <p class="text-slate-500 mt-1">
-              📍 <%= home.location %>
-            </p>
-          </div>
-
-          <!-- Price + Rating -->
-          <div class="flex flex-wrap items-center gap-4">
-
-            <div class="bg-emerald-50 text-emerald-600 px-5 py-3 rounded-2xl font-bold text-xl">
-              ₹<%= home.price %> / night
-            </div>
-
-            <div class="bg-yellow-50 text-yellow-600 px-5 py-3 rounded-2xl font-semibold text-lg">
-              ⭐ <%= home.rating %> / 5
-            </div>
-
-          </div>
-
-          <!-- Description -->
-          <div class="border-t border-slate-200 pt-5">
-            <h4 class="text-xl font-bold text-slate-800 mb-3">
-              Description
-            </h4>
-
-            <p class="text-slate-600 leading-7">
-              <%= home.description %>
-            </p>
-          </div>
-
-          <!-- Amenities -->
-          <div class="border-t border-slate-200 pt-5">
-            <h4 class="text-xl font-bold text-slate-800 mb-3">
-              Why You'll Love It
-            </h4>
-
-            <div class="grid grid-cols-2 gap-3 text-slate-600">
-
-              <div class="bg-slate-100 px-4 py-3 rounded-xl">🏡 Comfortable Stay</div>
-              <div class="bg-slate-100 px-4 py-3 rounded-xl">📶 Free WiFi</div>
-              <div class="bg-slate-100 px-4 py-3 rounded-xl">🚗 Easy Parking</div>
-              <div class="bg-slate-100 px-4 py-3 rounded-xl">🌟 Top Rated</div>
+              </div>
 
             </div>
-          </div>
 
-          <!-- Favourite Button -->
-          <div class="pt-4">
-           <%- include('../partials/favourite', { home: home }) %>
-          </div>
+            <!-- Content -->
+            <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
 
-        </div>
+              <!-- Left Image -->
+              <div class="rounded-3xl overflow-hidden shadow-lg border border-slate-200">
+                <img src="<%= home.photo %>" alt="<%= home.houseName %>"
+                  class="w-full h-full min-h-[420px] object-cover hover:scale-105 transition duration-500">
+              </div>
 
-      </div>
+              <!-- Right Details -->
+              <div class="space-y-6">
 
-    </section>
+                <!-- House Name -->
+                <div>
+                  <h3 class="text-3xl font-bold text-slate-800">
+                    <%= home.houseName %>
+                  </h3>
 
-  </main>
+                  <p class="text-slate-500 mt-1">
+                    📍 <%= home.location %>
+                  </p>
+                </div>
 
-</body>
-</html>
+                <!-- Price + Rating -->
+                <div class="flex flex-wrap items-center gap-4">
+
+                  <div class="bg-emerald-50 text-emerald-600 px-5 py-3 rounded-2xl font-bold text-xl">
+                    ₹<%= home.price %> / night
+                  </div>
+
+                  <div class="bg-yellow-50 text-yellow-600 px-5 py-3 rounded-2xl font-semibold text-lg">
+                    ⭐ <%= home.rating %> / 5
+                  </div>
+
+                </div>
+
+                <!-- Description -->
+                <div class="border-t border-slate-200 pt-5">
+                  <h4 class="text-xl font-bold text-slate-800 mb-3">
+                    Description
+                  </h4>
+
+                  <p class="text-slate-600 leading-7">
+                    <%= home.description %>
+                  </p>
+                </div>
+
+                <!-- Amenities -->
+                <div class="border-t border-slate-200 pt-5">
+                  <h4 class="text-xl font-bold text-slate-800 mb-3">
+                    Why You'll Love It
+                  </h4>
+
+                  <div class="grid grid-cols-2 gap-3 text-slate-600">
+                    <div class="bg-slate-100 px-4 py-3 rounded-xl">🏡 Comfortable Stay</div>
+                    <div class="bg-slate-100 px-4 py-3 rounded-xl">📶 Free WiFi</div>
+                    <div class="bg-slate-100 px-4 py-3 rounded-xl">🚗 Easy Parking</div>
+                    <div class="bg-slate-100 px-4 py-3 rounded-xl">🌟 Top Rated</div>
+                  </div>
+                </div>
+
+                <!-- Guest Booking Form -->
+                <% if (isLoggedIn && user && user.userType==="guest" ) { %>
+
+                  <div class="border-t border-slate-200 pt-6">
+
+                    <h4 class="text-xl font-bold text-slate-800 mb-5">
+                      Reserve this Home
+                    </h4>
+                    <form action="/bookings/<%= home._id %>" method="POST">
+
+                      <div class="grid grid-cols-2 gap-4">
+
+                        <div>
+                          <label class="block mb-2 font-medium">Check In</label>
+
+                          <input type="date" id="checkIn" name="checkIn" required class="w-full border rounded-xl p-3">
+                        </div>
+
+                        <div>
+                          <label class="block mb-2 font-medium">Check Out</label>
+
+                          <input type="date" id="checkOut" name="checkOut" required
+                            class="w-full border rounded-xl p-3">
+                        </div>
+
+                      </div>
+
+                      <div class="mt-5">
+
+                        <label class="block mb-2 font-medium">Guests</label>
+
+                        <input type="number" name="guests" value="1" min="1" class="w-full border rounded-xl p-3">
+
+                      </div>
+
+                      <!-- Booking Summary -->
+
+                      <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+
+                        <div class="flex justify-between mb-3">
+
+                          <span class="text-slate-600">
+                            Price / Night
+                          </span>
+
+                          <span class="font-bold text-emerald-600">
+                            ₹<%= home.price %>
+                          </span>
+
+                        </div>
+
+                        <div class="flex justify-between mb-3">
+
+                          <span class="text-slate-600">
+                            Nights
+                          </span>
+
+                          <span id="nightCount" class="font-semibold">
+
+                            0
+
+                          </span>
+
+                        </div>
+
+                        <hr class="my-3">
+
+                        <div class="flex justify-between text-lg">
+
+                          <span class="font-bold">
+                            Total
+                          </span>
+
+                          <span id="totalPrice" class="font-bold text-emerald-600">
+
+                            ₹0
+
+                          </span>
+
+                        </div>
+
+                      </div>
+
+                      <button id="reserveBtn" type="submit" disabled
+                        class="mt-6 w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition">
+
+                        Reserve Now
+
+                      </button>
+
+                    </form>
+
+                  </div>
+
+                  <% } %>
+
+                    <!-- ================= Reviews Section ================= -->
+
+                    <div class="border-t border-slate-200 pt-8">
+
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+
+                        <div>
+
+                          <h3 class="text-3xl font-bold text-slate-800">
+
+                            ⭐ <%= home.rating %>
+
+                          </h3>
+
+                          <p class="text-slate-500 mt-1">
+
+                            Based on
+                            <strong>
+                              <%= home.totalReviews %>
+                            </strong>
+                            review<%= home.totalReviews !==1 ? "s" : "" %>
+
+                          </p>
+
+                        </div>
+
+                        <div class="mt-4 sm:mt-0">
+
+                          <% for(let i=1; i <=5; i++) { %>
+
+                            <% if(i <=Math.round(home.rating)) { %>
+
+                              <span class="text-2xl text-yellow-500">★</span>
+
+                              <% } else { %>
+
+                                <span class="text-2xl text-slate-300">★</span>
+
+                                <% } %>
+
+                                  <% } %>
+
+                        </div>
+
+                      </div>
+
+                      <!-- Review Form -->
+
+                      <% if (canReview) { %>
+
+                        <form action="/reviews/<%= home._id %>" method="POST"
+                          class="bg-slate-50 rounded-2xl p-6 mb-8 border">
+
+                          <div>
+
+                            <label class="block font-semibold mb-2">
+
+                              Rating
+
+                            </label>
+
+                            <select name="rating" required class="w-full border rounded-xl p-3">
+
+                              <option value="">Select Rating</option>
+
+                              <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                              <option value="4">⭐⭐⭐⭐ (4)</option>
+                              <option value="3">⭐⭐⭐ (3)</option>
+                              <option value="2">⭐⭐ (2)</option>
+                              <option value="1">⭐ (1)</option>
+
+                            </select>
+
+                          </div>
+
+                          <div class="mt-5">
+
+                            <label class="block font-semibold mb-2">
+
+                              Your Review
+
+                            </label>
+
+                            <textarea name="comment" rows="4" maxlength="500" required
+                              class="w-full border rounded-xl p-3 resize-none"
+                              placeholder="Share your experience..."></textarea>
+
+                          </div>
+
+                          <button
+                            class="mt-5 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-semibold">
+
+                            Submit Review
+
+                          </button>
+
+                        </form>
+
+                        <% } %>
+
+                          <!-- Reviews List -->
+
+                          <% if (reviews.length===0) { %>
+
+                            <p class="text-slate-500">
+
+                              No reviews yet.
+
+                            </p>
+
+                            <% } else { %>
+
+                              <div class="space-y-5">
+
+                                <% reviews.forEach(review=> { %>
+
+                                  <div class="bg-white border rounded-2xl p-5 shadow-sm">
+
+                                    <div class="flex justify-between items-start">
+
+                                      <div>
+
+                                        <h4 class="font-bold text-lg text-slate-800">
+
+                                          👤 <%= review.guestId.firstName %>
+                                            <%= review.guestId.lastName %>
+
+                                        </h4>
+
+                                        <p class="text-emerald-600 text-sm mt-1 font-medium">
+
+                                          ✓ Verified Stay
+
+                                        </p>
+
+                                      </div>
+
+                                      <div>
+
+                                        <% for(let i=1; i <=5; i++) { %>
+
+                                          <% if(i <=review.rating) { %>
+
+                                            <span class="text-yellow-500 text-xl">★</span>
+
+                                            <% } else { %>
+
+                                              <span class="text-slate-300 text-xl">★</span>
+
+                                              <% } %>
+
+                                                <% } %>
+
+                                      </div>
+
+                                    </div>
+
+                                    <p class="text-slate-500 text-sm mt-1">
+
+                                      <%= new Date(review.createdAt).toLocaleDateString("en-IN") %>
+
+                                    </p>
+                                    <div class="mt-5 bg-slate-50 rounded-xl p-4 border border-slate-200">
+
+                                      <p class="text-slate-700 leading-7 italic">
+
+                                        "<%= review.comment %>"
+
+                                      </p>
+
+                                    </div>
+
+                                  </div>
+
+                                  <% }) %>
+
+                              </div>
+
+                              <% } %>
+
+                    </div>
+
+                    <!-- Visitor (Not Logged In) -->
+                    <% if (!userType) { %>
+
+                      <div class="pt-4">
+                        <a href="/login"
+                          class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition duration-300">
+                          Login to Book
+                        </a>
+                      </div>
+
+                      <% } %>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </main>
+
+        <script>
+
+          const checkIn = document.getElementById("checkIn");
+          const checkOut = document.getElementById("checkOut");
+
+          const nightCount = document.getElementById("nightCount");
+          const totalPrice = document.getElementById("totalPrice");
+          const reserveBtn = document.getElementById("reserveBtn");
+
+          const pricePerNight = <%= home.price %>;
+
+          function updateBookingSummary() {
+
+            if (!checkIn.value || !checkOut.value) {
+
+              nightCount.textContent = "0";
+              totalPrice.textContent = "₹0";
+              reserveBtn.disabled = true;
+              return;
+
+            }
+
+            const start = new Date(checkIn.value);
+            const end = new Date(checkOut.value);
+
+            const oneDay = 1000 * 60 * 60 * 24;
+
+            const nights = Math.ceil((end - start) / oneDay);
+
+            if (nights <= 0) {
+
+              nightCount.textContent = "0";
+              totalPrice.textContent = "₹0";
+
+              reserveBtn.disabled = true;
+
+              return;
+
+            }
+
+            nightCount.textContent = nights;
+
+            totalPrice.textContent =
+              "₹" + (nights * pricePerNight).toLocaleString("en-IN");
+            reserveBtn.disabled = false;
+
+          }
+          // Prevent selecting past dates
+          const today = new Date().toISOString().split("T")[0];
+
+          checkIn.min = today;
+
+          // Update minimum checkout date
+          checkIn.addEventListener("change", () => {
+
+            const nextDay = new Date(checkIn.value);
+
+            nextDay.setDate(nextDay.getDate() + 1);
+
+            checkOut.min = nextDay.toISOString().split("T")[0];
+
+            if (checkOut.value <= checkIn.value) {
+              checkOut.value = "";
+            }
+
+            updateBookingSummary();
+
+          });
+
+          checkOut.addEventListener("change", updateBookingSummary);
+
+        </script>
+
+  </body>
+
+  </html>

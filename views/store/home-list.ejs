@@ -4,6 +4,7 @@
 <body class="bg-slate-100 min-h-screen">
 
   <%- include('../partials/nav') %>
+  <%- include('../partials/flash') %>
 
   <main class="max-w-7xl mx-auto px-4 py-8">
 
@@ -57,7 +58,7 @@
                   <img 
                     src="<%= home.photo %>" 
                     alt="<%= home.houseName %>" 
-                    class="w-full h-56 object-cover hover:scale-110 transition duration-500"
+                    class="w-full h-44 object-cover hover:scale-110 transition duration-500"
                   >
                 </div>
 
@@ -65,7 +66,7 @@
                 <div class="p-5">
 
                   <!-- Name -->
-                  <h3 class="text-xl font-bold text-slate-800 mb-2 truncate">
+                  <h3 class="text-lg font-bold text-slate-800 mb-2 truncate">
                     <%= home.houseName %>
                   </h3>
 
@@ -125,7 +126,8 @@
             >
 
             <h3 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-3">
-              No Homes Available Right Now
+              No homes matched your search.
+              Try changing your filters.
             </h3>
 
             <p class="text-slate-500 text-lg mb-8">

@@ -1,0 +1,222 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+<%- include('../partials/nav') %>
+
+<%- include('../partials/flash') %>
+
+<main class="max-w-md mx-auto py-16 px-4">
+
+    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+        <!-- Header -->
+
+        <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 text-white p-8 text-center">
+
+            <img
+                src="/images/logo.png"
+                class="w-16 h-16 mx-auto mb-4"
+                alt="HomeSpace">
+
+            <h2 class="text-3xl font-bold">
+
+                Verify Your Email
+
+            </h2>
+
+            <p class="mt-2 text-white/90">
+
+                We've sent a 6-digit OTP to
+
+            </p>
+
+            <p class="font-semibold mt-1">
+
+                <%= email %>
+
+            </p>
+
+        </div>
+
+        <!-- Body -->
+
+        <div class="p-8">
+
+            <% if(errors.length>0){ %>
+
+                <div class="mb-5 bg-red-100 border border-red-300 text-red-700 p-4 rounded-xl">
+
+                    <%= errors[0] %>
+
+                </div>
+
+            <% } %>
+
+            <form action="/verify-otp" method="POST" id="otpForm">
+
+                <div class="flex justify-between gap-2">
+
+                    <% for(let i=0;i<6;i++){ %>
+
+                        <input
+                            type="text"
+                            maxlength="1"
+                            class="otp-input w-12 h-14 text-center text-2xl font-bold border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none">
+
+                    <% } %>
+
+                </div>
+
+                <input
+                    type="hidden"
+                    name="otp"
+                    id="otp">
+
+                <button
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl">
+
+                    Verify OTP
+
+                </button>
+
+            </form>
+
+            <div class="text-center mt-6">
+
+                <p
+                    id="timer"
+                    class="text-slate-500">
+
+                    Resend OTP in 60s
+
+                </p>
+
+                <form
+                    action="/resend-otp"
+                    method="POST">
+
+                    <button
+                        id="resendBtn"
+                        disabled
+                        class="mt-3 text-emerald-600 font-semibold disabled:text-slate-400">
+
+                        Resend OTP
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+
+const boxes=document.querySelectorAll(".otp-input");
+
+boxes[0].addEventListener("paste", (e) => {
+
+    e.preventDefault();
+
+    const pastedData = e.clipboardData
+        .getData("text")
+        .replace(/\D/g, "")
+        .slice(0, 6);
+
+    pastedData.split("").forEach((digit, index) => {
+
+        if (boxes[index]) {
+
+            boxes[index].value = digit;
+
+        }
+
+    });
+
+    hidden.value = pastedData;
+
+    const nextIndex = Math.min(pastedData.length, 5);
+
+    boxes[nextIndex].focus();
+
+});
+
+const hidden=document.getElementById("otp");
+
+boxes.forEach((box,index)=>{
+
+box.addEventListener("input",()=>{
+
+box.value=box.value.replace(/[^0-9]/g,'');
+
+if(box.value && index<boxes.length-1){
+
+boxes[index+1].focus();
+
+}
+
+hidden.value=[...boxes].map(i=>i.value).join("");
+
+});
+
+box.addEventListener("keydown",(e)=>{
+
+if(e.key==="Backspace" && !box.value && index>0){
+
+boxes[index-1].focus();
+
+}
+
+});
+
+});
+
+document.getElementById("otpForm").addEventListener("submit",(e)=>{
+
+hidden.value=[...boxes].map(i=>i.value).join("");
+
+if(hidden.value.length!==6){
+
+e.preventDefault();
+
+alert("Please enter all 6 digits.");
+
+}
+
+});
+
+let seconds=60;
+
+const timer=document.getElementById("timer");
+
+const resend=document.getElementById("resendBtn");
+
+const interval=setInterval(()=>{
+
+seconds--;
+
+timer.textContent=`Resend OTP in ${seconds}s`;
+
+if(seconds<=0){
+
+clearInterval(interval);
+
+timer.textContent="Didn't receive OTP?";
+
+resend.disabled=false;
+
+}
+
+},1000);
+
+</script>
+
+</body>
+
+</html>

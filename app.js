@@ -1,3 +1,7 @@
+require("dotenv").config();
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "Loaded" : "Not Loaded");
+
 // Core Module
 const path = require('path');
 
@@ -7,6 +11,8 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
 const multer = require('multer');
+const methodOverride = require("method-override");
+const flash = require("connect-flash");
 
 // Local Module
 const storeRouter = require("./routes/storeRouter");
@@ -14,6 +20,8 @@ const hostRouter = require("./routes/hostRouter");
 const authRouter = require("./routes/authRouter");
 const rootDir = require("./utils/pathUtil");
 const errorsController = require("./controllers/errors");
+const bookingRouter = require("./routes/bookingRouter");
+const reviewRouter = require("./routes/reviewRouter");
 
 const DB_PATH = "mongodb://127.0.0.1:27017/airbnb";
 
@@ -80,6 +88,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.use(
 
@@ -112,6 +121,7 @@ app.use(session({
   store: store
 
 }));
+app.use(flash());
 
 app.use((req, res, next) => {
 
@@ -121,12 +131,21 @@ app.use((req, res, next) => {
   res.locals.user =
     req.session?.user || null;
 
+  res.locals.successMessage =
+    req.flash("success");
+
+  res.locals.errorMessage =
+    req.flash("error");
+
   next();
 });
 
 app.use(authRouter);
 
 app.use(storeRouter);
+
+app.use("/bookings", bookingRouter);
+app.use("/reviews", reviewRouter);
 
 app.use("/host", (req, res, next) => {
 

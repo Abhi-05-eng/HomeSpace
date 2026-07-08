@@ -4,8 +4,190 @@
 <body class="bg-slate-100 min-h-screen">
 
   <%- include('../partials/nav') %>
+  <%- include('../partials/flash') %>
 
   <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Search & Filter -->
+<section class="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 mb-10">
+
+    <div class="mb-6">
+
+        <h2 class="text-3xl font-bold text-slate-800">
+            Find Your Perfect Stay
+        </h2>
+
+        <p class="text-slate-500 mt-2">
+            Search homes by name, location, price and rating.
+        </p>
+
+    </div>
+
+    <form
+        action="/"
+        method="GET">
+
+        <div class="grid lg:grid-cols-6 md:grid-cols-2 gap-5">
+
+            <!-- House Name -->
+
+            <div>
+
+                <label class="block text-sm font-semibold text-slate-700 mb-2">
+                   🏠 House Name
+                </label>
+
+                <input
+                    type="text"
+                    name="search"
+                    value="<%= search || '' %>"
+                    placeholder="Radisson"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+            </div>
+
+            <!-- Location -->
+
+            <div>
+
+                <label class="block text-sm font-semibold text-slate-700 mb-2">
+                    📍 Location
+                </label>
+
+                <input
+                    type="text"
+                    name="location"
+                    value="<%= location || '' %>"
+                    placeholder="Delhi"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+            </div>
+
+            <!-- Min Price -->
+
+            <div>
+
+                <label class="block text-sm font-semibold text-slate-700 mb-2">
+                   💰 Min Price
+                </label>
+
+                <input
+                    type="number"
+                    name="minPrice"
+                    value="<%= minPrice || '' %>"
+                    placeholder="500"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+            </div>
+
+            <!-- Max Price -->
+
+            <div>
+
+                <label class="block text-sm font-semibold text-slate-700 mb-2">
+                  💰 Max Price
+                </label>
+
+                <input
+                    type="number"
+                    name="maxPrice"
+                    value="<%= maxPrice || '' %>"
+                    placeholder="5000"
+                    class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+            </div>
+
+<!-- Rating -->
+
+<div>
+
+    <label class="block text-sm font-semibold text-slate-700 mb-2">
+        ⭐ Rating
+    </label>
+
+    <select
+        name="rating"
+        class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+        <option value="">Any Rating</option>
+
+        <option value="5" <%= rating=="5" ? "selected" : "" %>>
+            ⭐ 5
+        </option>
+
+        <option value="4.5" <%= rating=="4.5" ? "selected" : "" %>>
+            ⭐ 4.5+
+        </option>
+
+        <option value="4" <%= rating=="4" ? "selected" : "" %>>
+            ⭐ 4+
+        </option>
+
+        <option value="3" <%= rating=="3" ? "selected" : "" %>>
+            ⭐ 3+
+        </option>
+
+    </select>
+
+</div>
+
+<!-- Sort -->
+
+<div>
+
+    <label class="block text-sm font-semibold text-slate-700 mb-2">
+        ↕️ Sort By
+    </label>
+
+    <select
+        name="sort"
+        class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-emerald-500 outline-none">
+
+        <option value="">Recommended (Default)</option>
+
+        <option value="priceAsc" <%= sort==="priceAsc" ? "selected" : "" %>>
+            Price: Low → High
+        </option>
+
+        <option value="priceDesc" <%= sort==="priceDesc" ? "selected" : "" %>>
+            Price: High → Low
+        </option>
+
+        <option value="ratingDesc" <%= sort==="ratingDesc" ? "selected" : "" %>>
+            Rating: High → Low
+        </option>
+
+        <option value="newest" <%= sort==="newest" ? "selected" : "" %>>
+            Newest First
+        </option>
+
+    </select>
+</div>    
+<div class="lg:col-span-6 md:col-span-2 col-span-1 flex justify-center items-center gap-3 mt-6">
+
+    <a
+        href="/"
+        class="px-5 py-2.5 text-sm rounded-lg border border-slate-300 bg-white hover:bg-slate-100 transition font-medium">
+        Reset
+    </a>
+
+    <button
+        type="submit"
+        class="px-6 py-2.5 text-sm rounded-lg bg-gradient-to-r from-emerald-500 to-cyan-600 text-white font-semibold hover:opacity-90 transition">
+        Search
+    </button>
+
+</div>
+</div>
+
+
+
+
+
+
+</form>
+
+</section>
 
     <!-- Main Card -->
     <section class="bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -40,7 +222,7 @@
       </div>
 
       <!-- Homes Section -->
-      <div class="p-8">
+      <div class="pt-8">
 
         <% if (registeredHomes.length > 0) { %>
 
@@ -96,13 +278,6 @@
                     >
                       Details
                     </a>
-
-                    <button 
-                      class="flex-1 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:opacity-90 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300"
-                    >
-                      Book Now
-                    </button>
-
                   </div>
 
                 </div>
@@ -133,7 +308,7 @@
             </p>
 
             <a
-              href="/homes"
+              href="/"
               class="inline-block bg-gradient-to-r from-emerald-500 to-cyan-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition duration-300"
             >
               Explore Homes
@@ -143,8 +318,58 @@
 
         <% } %>
 
-      </div>
+          <!-- page Grid -->
+<div class="mt-12 pt-6 border-t border-slate-200">
+<% if (totalPages > 1) { %>
 
+<div class="flex justify-center items-center mt-12 mb-12">
+
+    <div class="bg-white rounded-2xl shadow-md px-6 py-4">
+
+        <div class="flex items-center gap-2 flex-wrap">
+
+            <!-- Previous -->
+            <% if (page > 1) { %>
+                <a
+                    href="/?search=<%= search %>&location=<%= location %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>&rating=<%= rating %>&sort=<%= sort %>&page=<%= page-1 %>"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-slate-300 hover:bg-slate-100">
+                    ←
+                </a>
+            <% } %>
+
+            <!-- Page Numbers -->
+            <% for(let i = 1; i <= totalPages; i++) { %>
+
+                <a
+                    href="/?search=<%= search %>&location=<%= location %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>&rating=<%= rating %>&sort=<%= sort %>&page=<%= i %>"
+                    class="w-10 h-10 flex items-center justify-center rounded-full
+                    <%= page === i
+                    ? 'bg-slate-900 text-white'
+                    : 'border border-slate-300 hover:bg-slate-100' %>">
+
+                    <%= i %>
+
+                </a>
+
+            <% } %>
+
+            <!-- Next -->
+            <% if (page < totalPages) { %>
+                <a
+                    href="/?search=<%= search %>&location=<%= location %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>&rating=<%= rating %>&sort=<%= sort %>&page=<%= page+1 %>"
+                    class="w-10 h-10 flex items-center justify-center rounded-full border border-slate-300 hover:bg-slate-100">
+                    →
+                </a>
+            <% } %>
+
+        </div>
+
+    </div>
+
+</div>
+
+<% } %>
+</div>
     </section>
 
   </main>

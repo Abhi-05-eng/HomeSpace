@@ -10,6 +10,12 @@ authRouter.post("/login", authController.postLogin);
 authRouter.post("/logout",authController.postLogout);
 authRouter.get("/signup",authController.getSignup);
 authRouter.post("/signup",authController.postSignup);
+// OTP Verification
+authRouter.get("/verify-otp", authController.getVerifyOtp);
+authRouter.post("/verify-otp", authController.postVerifyOtp);
+
+// Resend OTP
+authRouter.post("/resend-otp", authController.postResendOtp);
 
 
 module.exports = authRouter;

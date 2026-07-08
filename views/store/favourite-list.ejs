@@ -4,6 +4,7 @@
 <body class="bg-slate-100 min-h-screen">
 
   <%- include('../partials/nav') %>
+  <%- include('../partials/flash') %>
 
   <main class="max-w-7xl mx-auto px-4 py-8">
 
@@ -30,9 +31,16 @@
               Your Favourite Homes
             </h2>
 
-            <p class="mt-2 text-sm text-white/90">
-              Saved stays you loved on HomeSpace
-            </p>
+           <p class="mt-2 text-sm text-white/90">
+  Saved stays you loved on HomeSpace
+</p>
+
+<div class="mt-3 inline-flex items-center bg-white/20 px-4 py-2 rounded-full text-sm font-semibold">
+
+    ❤️ <%= favouriteHomes.length %>
+    Favourite<%= favouriteHomes.length !== 1 ? "s" : "" %>
+
+</div>
           </div>
 
         </div>
@@ -50,7 +58,7 @@
             <% favouriteHomes.forEach(home => { %>
 
               <!-- Card -->
-              <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300">
+<div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300">
 
                 <!-- Image -->
                 <img 
@@ -79,24 +87,41 @@
                       ₹<%= home.price %> / night
                     </span>
 
-                    <span class="flex items-center gap-1 text-yellow-500 font-semibold">
-                      ⭐ <%= home.rating %>
-                    </span>
+                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-bold">
+
+    ⭐ <%= home.rating %>
+
+</span>
 
                   </div>
 
                   <!-- Remove Button -->
-                  <form 
-                    action="/favourites/delete/<%= home._id %>" 
-                    method="POST"
-                  >
-                    <button
-                      type="submit"
-                      class="w-full bg-gradient-to-r from-emerald-500 to-cyan-600 hover:opacity-90 text-white py-3 rounded-xl font-semibold shadow-md transition duration-300"
-                    >
-                      Remove Favourite
-                    </button>
-                  </form>
+                  <div class="flex gap-3">
+
+  <a
+    href="/homes/<%= home._id %>"
+    class="flex-1 text-center bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold transition">
+
+    View Details
+
+  </a>
+
+  <form
+    action="/favourites/delete/<%= home._id %>"
+    method="POST"
+    class="flex-1">
+
+    <button
+      type="submit"
+      class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-semibold transition">
+
+      Remove
+
+    </button>
+
+  </form>
+
+</div>
 
                 </div>
 
