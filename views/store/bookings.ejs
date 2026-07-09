@@ -200,6 +200,61 @@
 
                                 </p>
 
+                                <p>
+
+                                  💳
+                                  <strong>Payment Status:</strong>
+
+                                  <% if (booking.paymentStatus==="Paid" ) { %>
+
+                                    <span class="text-green-600 font-bold">
+                                      ✅ Paid
+                                    </span>
+
+                                    <% } else { %>
+
+                                      <span class="text-red-600 font-bold">
+                                        ❌ Pending
+                                      </span>
+
+                                      <% } %>
+
+                                </p>
+
+                                <% if (booking.paymentId) { %>
+
+                                  <p class="break-all">
+
+                                    🆔
+                                    <strong>Payment ID:</strong>
+
+                                    <span class="text-slate-600 text-sm">
+
+                                      <%= booking.paymentId %>
+
+                                    </span>
+
+                                  </p>
+
+                                  <% } %>
+
+                                    <% if (booking.orderId) { %>
+
+                                      <p class="break-all">
+
+                                        📦
+                                        <strong>Order ID:</strong>
+
+                                        <span class="text-slate-600 text-sm">
+
+                                          <%= booking.orderId %>
+
+                                        </span>
+
+                                      </p>
+
+                                      <% } %>
+
                               </div>
 
                             </div>
@@ -215,6 +270,15 @@
                                 <button class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl transition">
                                   Cancel Booking
                                 </button>
+
+                                <% if (booking.invoiceFile) { %>
+
+                                  <a href="/invoices/<%= booking.invoiceFile %>" target="_blank"
+                                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl transition">
+                                    📄 Download Invoice
+                                  </a>
+
+                                  <% } %>
 
                               </form>
 

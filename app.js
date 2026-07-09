@@ -22,6 +22,7 @@ const rootDir = require("./utils/pathUtil");
 const errorsController = require("./controllers/errors");
 const bookingRouter = require("./routes/bookingRouter");
 const reviewRouter = require("./routes/reviewRouter");
+const paymentRoutes = require("./routes/payment");
 
 const DB_PATH = "mongodb://127.0.0.1:27017/airbnb";
 
@@ -87,6 +88,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
@@ -108,6 +110,11 @@ app.use(express.static(path.join(rootDir, 'public')));
 app.use(
   '/uploads',
   express.static(path.join(rootDir, 'uploads'))
+);
+
+app.use(
+  "/invoices",
+  express.static(path.join(rootDir, "invoices"))
 );
 
 app.use(session({
@@ -146,6 +153,7 @@ app.use(storeRouter);
 
 app.use("/bookings", bookingRouter);
 app.use("/reviews", reviewRouter);
+app.use("/payment", paymentRoutes);
 
 app.use("/host", (req, res, next) => {
 
@@ -167,7 +175,7 @@ app.use((error, req, res, next) => {
 
   console.log(error);
 
-  res.status(500).render("error", {
+  res.status(500).render("404", {
     pageTitle: "Error",
     errorMessage: error.message
   });

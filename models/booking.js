@@ -46,6 +46,24 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
 
+    paymentId: {
+      type: String,
+    },
+
+    orderId: {
+      type: String,
+    },
+
+    invoiceFile: {
+    type: String
+},
+
+    paymentStatus: {
+      type: String,
+      enum: ["Pending", "Paid", "Failed"],
+      default: "Pending",
+    },
+
     bookingDate: {
       type: Date,
       default: Date.now,
@@ -59,7 +77,7 @@ const bookingSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports = mongoose.model("Booking", bookingSchema);
