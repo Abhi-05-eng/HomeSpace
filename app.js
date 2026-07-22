@@ -1,7 +1,4 @@
 require("dotenv").config();
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "Loaded" : "Not Loaded");
-
 // Core Module
 const path = require('path');
 
@@ -24,7 +21,7 @@ const bookingRouter = require("./routes/bookingRouter");
 const reviewRouter = require("./routes/reviewRouter");
 const paymentRoutes = require("./routes/payment");
 
-const DB_PATH = "mongodb://127.0.0.1:27017/airbnb";
+const DB_PATH = process.env.MONGODB_URI;
 
 const app = express();
 
