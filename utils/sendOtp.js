@@ -1,36 +1,44 @@
-const nodemailer = require("nodemailer");
+const SibApiV3Sdk = require("@getbrevo/brevo");
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
-  requireTLS: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+apiInstance.setApiKey(
+  SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY
+);
 
 const sendOtp = async (email, otp, firstName) => {
   console.log("Sending OTP...");
   console.log("To:", email);
 
   try {
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to: email,
+    await apiInstance.sendTransacEmail({
+      sender: {
+        name: "HomeSpace",
+        email: "abhayshakya6395@gmail.com",
+      },
+
+      to: [
+        {
+          email: email,
+          name: firstName,
+        },
+      ],
+
       subject: "Verify Your HomeSpace Account",
-      html: `
-        <h2>Hello ${firstName}</h2>
-        <h1>${otp}</h1>
+
+      htmlContent: `
+        <h2>Hello ${firstName},</h2>
+        <p>Your OTP for HomeSpace verification is:</p>
+        <h1 style="letter-spacing:5px;">${otp}</h1>
+        <p>This OTP is valid for 5 minutes.</p>
       `,
     });
 
-    console.log("✅ Mail Sent:", info.messageId);
+    console.log("✅ OTP Email Sent Successfully");
   } catch (err) {
     console.log("❌ SEND OTP ERROR");
-    console.log(err);
-
+    console.log(err.response?.body || err);
     throw err;
   }
 };
