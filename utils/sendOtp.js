@@ -1,9 +1,9 @@
-const SibApiV3Sdk = require("@getbrevo/brevo");
+const brevo = require("@getbrevo/brevo");
 
-const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+const apiInstance = new brevo.TransactionalEmailsApi();
 
 apiInstance.setApiKey(
-  SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
+  brevo.TransactionalEmailsApiApiKeys.apiKey,
   process.env.BREVO_API_KEY
 );
 
@@ -17,25 +17,21 @@ const sendOtp = async (email, otp, firstName) => {
         name: "HomeSpace",
         email: "abhayshakya6395@gmail.com",
       },
-
       to: [
         {
-          email: email,
+          email,
           name: firstName,
         },
       ],
-
       subject: "Verify Your HomeSpace Account",
-
       htmlContent: `
-        <h2>Hello ${firstName},</h2>
-        <p>Your OTP for HomeSpace verification is:</p>
-        <h1 style="letter-spacing:5px;">${otp}</h1>
-        <p>This OTP is valid for 5 minutes.</p>
+        <h2>Hello ${firstName}</h2>
+        <p>Your OTP is:</p>
+        <h1>${otp}</h1>
       `,
     });
 
-    console.log("✅ OTP Email Sent Successfully");
+    console.log("✅ OTP Sent");
   } catch (err) {
     console.log("❌ SEND OTP ERROR");
     console.log(err.response?.body || err);
@@ -43,4 +39,4 @@ const sendOtp = async (email, otp, firstName) => {
   }
 };
 
-module.exports = sendOtp;
+module.exports = sendOtp; 
